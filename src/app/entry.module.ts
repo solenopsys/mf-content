@@ -21,8 +21,7 @@ let routes = RouterModule.forChild([{
     ],
     imports: [
         routes,
-        UINavigateModule,
-        NgClass
+        UINavigateModule
     ],
     providers: [],
 })
