@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, ViewEncapsulation} from "@angular/core";
 
 import {GroupService} from "@solenopsys/ui-publications";
 import {ActivatedRoute} from "@angular/router";
-import {DataLoadRequest, MenuLoaderService} from "@solenopsys/ui-templates";
+import {AddProvider, AddProviderMapping, DataLoadRequest} from "@solenopsys/ui-templates";
 import {Store} from "@ngxs/store";
 import {IpfsMenuLoadProvider} from "../menu-load.provider";
 import {timeout} from "rxjs";
@@ -13,21 +13,18 @@ import {timeout} from "rxjs";
     styleUrls: ["./left-menu-layout.component.scss"],
     encapsulation: ViewEncapsulation.Emulated
 })
-export class LeftMenuLayoutComponent implements OnInit{
+export class LeftMenuLayoutComponent implements OnInit {
     mobileMenu = false;
 
 
-    constructor(private store: Store, private ar: ActivatedRoute, private groupService: GroupService, private mls: MenuLoaderService) {
-
-        console.log("GROUP_SERVICE", this.groupService)
-        // todo add mapping to config
-
+    constructor(private store: Store, private ar: ActivatedRoute, private groupService: GroupService) {
     }
 
     ngOnInit(): void {
         const dataKey = this.ar.snapshot.data['ipfs'];
-        this.mls.addProvider("content_provider", new IpfsMenuLoadProvider(this.groupService));
-        this.mls.addMapping(dataKey, "content_provider");
+        this.store.dispatch(new AddProvider("content_provider", new IpfsMenuLoadProvider(this.groupService)))
+        this.store.dispatch(new AddProviderMapping(dataKey, "content_provider"))
+
 
         setTimeout(
             () => {
@@ -35,9 +32,6 @@ export class LeftMenuLayoutComponent implements OnInit{
             }, 0
         )
     }
-
-
-
 
 
 }
