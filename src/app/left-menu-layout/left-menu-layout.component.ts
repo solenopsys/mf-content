@@ -1,11 +1,10 @@
-import {Component, Inject, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 
 import {GroupService} from "@solenopsys/ui-publications";
 import {ActivatedRoute} from "@angular/router";
 import {AddProvider, AddProviderMapping, DataLoadRequest} from "@solenopsys/ui-templates";
 import {Store} from "@ngxs/store";
 import {IpfsMenuLoadProvider} from "../menu-load.provider";
-import {timeout} from "rxjs";
 
 @Component({
     selector: "sc-left-menu-layout",
